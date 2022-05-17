@@ -1,4 +1,4 @@
-# Hi there 👋
+  Hi there 👋
 
 
 
@@ -13,10 +13,6 @@
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" width = "60" height = "60"/>
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vim/vim-original.svg" width ="60" height = "60"/>
  
-  
+  [![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=Mr-76&langs_count=10&layout=compact&theme=midnight-purple)](https://github.com/anuraghazra/github-readme-stats)
 </div>
-<div>
-  <a href="https://github.com/holand76">
-  <img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=Mr-76&layout=compact&langs_count=10&theme=midnight-purple&hide=Makefile"/>
-  
-</div>
+
