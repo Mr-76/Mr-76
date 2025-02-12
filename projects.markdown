@@ -8,7 +8,7 @@ permalink: /projects/
 
 {% for repo in site.github.public_repositories %}
 
-{% if repo.fork == true  %}
+{% if true  %}
 
 ## [{{ repo.name }}]({{ repo.html_url }})
 
