@@ -1,0 +1,57 @@
+	<svg fill="none" viewBox="0 0 800 400" width="800" height="400" xmlns="http://www.w3.org/2000/svg">
+	  <foreignObject width="100%" height="100%">
+	    <div xmlns="http://www.w3.org/1999/xhtml">
+
+      <style>
+           .loading__anim {
+            width: 195px;
+            height: 10px;
+            border: 5px solid rgba(0, 255, 189, 0.25);
+            border-left-color: rgba(3, 255, 229, 1);
+            border-top-color: rgba(3, 55, 229, 1);
+            display: inline-block;
+            animation: rotate 15000ms infinite linear;
+        }
+
+        @keyframes rotate {
+            to {
+                transform: rotate(1turn);
+            }
+        }
+      </style>
+
+		<span class="loading__anim"></span>
+		<span class="loading__anim"></span>
+		<span class="loading__anim"></span>
+		<span class="loading__anim"></span>
+		<span class="loading__anim"></span>
+		<span class="loading__anim"></span>
+		<span class="loading__anim"></span>
+		<span class="loading__anim"></span>
+		<span class="loading__anim"></span>
+		<span class="loading__anim"></span>
+		<span class="loading__anim"></span>
+		<span class="loading__anim"></span>
+		<span class="loading__anim"></span>
+		<span class="loading__anim"></span>
+		<span class="loading__anim"></span>
+		<span class="loading__anim"></span>
+		<span class="loading__anim"></span>
+		<span class="loading__anim"></span>
+		<span class="loading__anim"></span>
+		<span class="loading__anim"></span>
+		<span class="loading__anim"></span>
+		<span class="loading__anim"></span>
+		<span class="loading__anim"></span>
+		<span class="loading__anim"></span>
+		<span class="loading__anim"></span>
+		<span class="loading__anim"></span>
+		<span class="loading__anim"></span>
+		<span class="loading__anim"></span>
+		<span class="loading__anim"></span>
+		<span class="loading__anim"></span>
+		<span class="loading__anim"></span>
+		<span class="loading__anim"></span>
+    </div>
+  </foreignObject>
+</svg>
