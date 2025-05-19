@@ -4,6 +4,7 @@ title:  "Swarm Cluster on ARM SBCs 3"
 date:   2025-05-19 16:59:28 -0300
 categories: jekyll update
 image: /assets/sbcsinfos.png
+image2: /assets/compile.png
 ---
 
 ## Stress Testing the Swarm Cluster
@@ -172,3 +173,16 @@ async fn main() {
 
 Using tokio as our web api, what it does is a simple bubble sort based on the input of a list of words and returns the
 sorted list.  
+
+---
+And after 2 hours.... it compiled and its working
+
+
+![WebApp]({{ page.image2 }})
+
+and now the results of sorting  
+![WebApp]({{ page.sorted }})
+
+Well after confirming that working the next step will be to create the required docker images to be used on the swarm  
+since the nodes kinda differ architectures, probably going to need to build images for each architecture....  
+well that it.  
