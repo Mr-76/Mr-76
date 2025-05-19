@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Swarm Cluster on ARM SBCs"
+title:  "Swarm Cluster on ARM SBCs 1"
 date:   2025-05-05 16:59:28 -0300
 categories: jekyll update
 image: /assets/sbcsinfos.png

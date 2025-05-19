@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Swarm Cluster on ARM SBCs"
+title:  "Swarm Cluster on ARM SBCs 2"
 date:   2025-05-11 19:49:28 -0300
 categories: jekyll update
 image: /assets/managernode.png
@@ -9,11 +9,12 @@ image: /assets/managernode.png
 
 Now based on this great post: https://www.docker.com/blog/getting-started-with-docker-for-arm-on-linux/, we are going to install Docker on the 4 devices. That can be done by following that post, or the package manager of the distro already has the Docker package, or you can use, in the case of Armbian, the config tool called armbian-config. After that, use the command:
 
-sudo usermod -aG docker username
+```sudo usermod -aG docker username```
 
 a means add, G means group — add the user to the group docker. You may need to log out and back in to take effect.
 
-Now the Docker versions listing for now:
+---
+## Now the Docker versions listing for now:
 
     Banana Pi: 27.1.1
 
@@ -29,28 +30,27 @@ It goes into detail about redundancy, number of management nodes, number of work
 
 When setting up the 3 workers and 1 manager, they all need static IP addresses. That can be done either by setting a static IP address on the computer or setting that up in the router, which in my case was done quickly in OPNsense's DHCP server. After that, verify if the ports are open. They are:
 
-    Port 2377/TCP for communication with and between manager nodes
-
-    Port 7946/TCP/UDP for overlay network node discovery
-
-    Port 4789/UDP (configurable) for overlay network traffic
+    Port 2377/TCP for communication with and between manager nodes  
+    Port 7946/TCP/UDP for overlay network node discovery  
+    Port 4789/UDP (configurable) for overlay network traffic  
 
 Commands to open all ports with iptables:
-
+```
 iptables -A INPUT -p tcp --dport 2377 -j ACCEPT
 iptables -A INPUT -p tcp --dport 7946 -j ACCEPT
 iptables -A INPUT -p udp --dport 7946 -j ACCEPT
 iptables -A INPUT -p udp --dport 4789 -j ACCEPT
-
+```
 What does each option mean?
 -A appends a rule to the INPUT chain, -p specifies the protocol (TCP or UDP), --dport is the destination port, and -j means the action — it jumps to ACCEPT if matched.
 
-For more details: https://www.linux.co.cr/distributions/review/2002/red-hat-8.0/rhl-rg/s1-iptables-options.html
-connection refused can’t connect — iptables?
+For more details: [iptables-options](https://www.linux.co.cr/distributions/review/2002/red-hat-8.0/rhl-rg/s1-iptables-options.html)
 
-To start the manager node:
+---
 
-docker swarm init --advertise-addr manager_ip_address
+## To start the manager node:
+
+```docker swarm init --advertise-addr manager_ip_address```
 
 After that, run:
 
@@ -69,22 +69,26 @@ do
 done
 ```
 
+- #### docker node ls
+
 
 After that we have:
 
 ID                          HOSTNAME        STATUS   AVAILABILITY  MANAGER STATUS  ENGINE VERSION
-0lqoz9l31vr49qn2ucf2nqmra   bananapim2zero  Ready    Active                      27.1.1  
-ou2gmpss8t2c1yn8c7l9d1h80   clusterZero0    Ready    Active                      20.10.24+dfsg1  
-v3ujlsa2nac5b7ptzh5lcqo9s   orangepizero2w  Ready    Active       Leader         28.0.4  
-kzq1fxgl7yo6lgbqdunk7dym7   pi3b            Ready    Active                      20.10.24+dfsg1  
+- 0lqoz9l31vr49qn2ucf2nqmra   bananapim2zero  Ready    Active                      27.1.1  
+- ou2gmpss8t2c1yn8c7l9d1h80   clusterZero0    Ready    Active                      20.10.24+dfsg1  
+- v3ujlsa2nac5b7ptzh5lcqo9s   orangepizero2w  Ready    Active       Leader         28.0.4  
+- kzq1fxgl7yo6lgbqdunk7dym7   pi3b            Ready    Active                      20.10.24+dfsg1  
 
-Now let’s try to deploy a simple test service…  
+---
+
+## Now let’s try to deploy a simple test service…  
 The test service that Docker suggests is:  
 
 docker service create --replicas 1 --name helloworld alpine ping docker.com
 
 Well, that worked:
-
+```
 REPLICAS  IMAGE         PORTS  
 1/1       alpine:latest  
 Better try to inspect that. Need to see where that is, etc.  
@@ -113,11 +117,12 @@ ContainerSpec:
 Resources:  
 Endpoint Mode:   vip  
 
+```
 Now to the location:
 
-docker service ps helloworld  
+```docker service ps helloworld```
 Now we have it:  
-t7w0atmqnpqo  helloworld.1  alpine:latest  orangepizero2w  Running  10 minutes ago  
+- t7w0atmqnpqo  helloworld.1  alpine:latest  orangepizero2w  Running  10 minutes ago  
 Well, let’s try more replicas… HEHEHEH  
 docker service create --replicas 4 --name helloworld2 alpine ping docker.com  
 
@@ -134,11 +139,11 @@ docker service scale helloworld=5
 
 Five replicas with only four nodes results in… normal stuff — it just duplicates one:
 
-t7w0atmqnpqo  helloworld.1  alpine:latest  orangepizero2w  Running  17 minutes ago  
-al97od3mn5q0  helloworld.2  alpine:latest  clusterZero0    Running  10 seconds ago  
-6q90nb3wyg8q  helloworld.3  alpine:latest  clusterZero0    Running  10 seconds ago  
-uz8nlmefc4el  helloworld.4  alpine:latest  pi3b            Running  20 seconds ago  
-mev0hauj66pr  helloworld.5  alpine:latest  bananapim2zero  Running  20 seconds ago  
+- t7w0atmqnpqo  helloworld.1  alpine:latest  orangepizero2w  Running  17 minutes ago  
+- al97od3mn5q0  helloworld.2  alpine:latest  clusterZero0    Running  10 seconds ago  
+- 6q90nb3wyg8q  helloworld.3  alpine:latest  clusterZero0    Running  10 seconds ago  
+- uz8nlmefc4el  helloworld.4  alpine:latest  pi3b            Running  20 seconds ago  
+- mev0hauj66pr  helloworld.5  alpine:latest  bananapim2zero  Running  20 seconds ago  
 
 Well, now let’s delete all that :)
 docker service ps helloworld  
